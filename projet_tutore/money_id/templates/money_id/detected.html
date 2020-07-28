@@ -1,8 +1,15 @@
 {% extends 'money_id/base.html'%}
 {% block content %}
-    {% if billet and devise %}
-        <h1 class="row center noexpense">On a detecté un billet de {{billet}} {{devise}}</h1>
+<div class="row center noexpense">
+    {% if billet != " " and devise != " " %}
+        <h1>On a détecté un billet de {{billet}} {{devise}}</h1>
     {% else %}
-        <h1 class="row center noexpense">On n'a pas pu detecter correctement le billet ou la devise du billet</h1>
+        <h1>On n'a pas pu detecter correctement le billet ou la devise du billet</h1>
     {% endif %}
+
+    <a href="{% url 'money_id:home'%}" class="btn-large waves-effect waves-light black lighten-1">
+            <i class="large material-icons">home</i>
+          </a>
+</div>
+    
 {% endblock %}

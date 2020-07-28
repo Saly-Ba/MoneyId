@@ -27,12 +27,12 @@ def assistant_speaks(output):
 	toSpeak.save(file) 
 	
 	# playsound package is used to play the same file. 
-	print(playsound.playsound(file, True)) 
+	playsound.playsound(file, True)
 	os.remove(file)
 
 def index(request): 
-
-	return render(request, 'money_id/home.html') 
+    assistant_speaks("Bienvenue dans notre application. Une application pour les non-voyants afin de les aider à identifier les billets qu'ils ont en leur possession. Vous pouvez uploader des images venant de votre repertoire ou capturer une image avec la webcam.")
+    return render(request, 'money_id/home.html') 
 
 def uploader(request):
     if request.method == 'POST': 
@@ -72,6 +72,8 @@ def detect_text(photo):
             if(text['DetectedText']  in devise and text['Confidence'] > 90 ):
                 if(text['DetectedText'] == 'CFA'):
                     devise_detecte = 'FRANCS '+text['DetectedText']
+                else:
+                    devise_detecte = text['DetectedText']
 
             print ('Detected text:' + text['DetectedText'])
             print ('Confidence: ' + "{:.2f}".format(text['Confidence']) + "%")
@@ -93,7 +95,10 @@ def main(request):
     text_count, billet, devise=detect_text(photo)
     print("Text detected: " + str(text_count))
 
-    assistant_speaks("On a detecté un billet de "+billet+" "+devise)
+    if(billet != ' ' and devise != ' '):
+        assistant_speaks("On a détecté un billet de "+billet+" "+devise)
+    else:
+        assistant_speaks("On n'a pas pu detecter correctement le billet ou la devise du billet")
 
     return render(request,"money_id/detected.html",{'billet':billet, 'devise':devise})
 
