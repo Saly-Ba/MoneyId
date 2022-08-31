@@ -16,7 +16,7 @@ jaraco.itertools==5.0.0
 jmespath==0.10.0
 Js2Py==0.70
 more-itertools==8.4.0
-numpy==1.19.1
+numpy==1.22.0
 opencv-python==4.3.0.36
 packaging==20.4
 Pillow==9.0.1
